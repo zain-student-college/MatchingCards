@@ -160,7 +160,8 @@
     <script>
        let cards = document.querySelectorAll('.flip-container');
 
-let sound = new Audio('click.mp3');
+let sound = new Audio('clickon.mp3');
+let win = new Audio('win2.wav');
 let hasPlayed = false;
 let firstCard = null;
 let secondCard = null;
@@ -196,6 +197,8 @@ function checkMatch() {
         firstCard.style.pointerEvents = 'none';
         secondCard.style.pointerEvents = 'none';
         resetgame();
+        sound.pause();
+        win.play();
         
     } else {
      
