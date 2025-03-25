@@ -68,14 +68,14 @@
                     </div>
                 </div> 
 
-                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.toggle('flipped')">
+                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">2</div>
                         <div class="card-back">B</div>
                     </div>
                 </div> 
 
-                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.toggle('flipped')">
+                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">3</div>
                         <div class="card-back">C</div>
@@ -85,21 +85,21 @@
 
             <!-- Row 2 -->
             <div class="h-1/4 flex justify-around mt-5">
-                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.toggle('flipped')">
+                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">4</div>
                         <div class="card-back">D</div>
                     </div>
                 </div> 
 
-                <div class="flip-container w-1/4 h-full" onclick="this.children[0].classList.toggle('flipped')">
+                <div class="flip-container w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">5</div>
                         <div class="card-back">E</div>
                     </div>
                 </div> 
 
-                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.toggle('flipped')">
+                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">6</div>
                         <div class="card-back">F</div>
@@ -109,21 +109,21 @@
 
             <!-- Row 3 -->
             <div class="h-1/4 flex justify-around mt-5">
-                <div class="flip-container w-1/4 h-full" onclick="this.children[0].classList.toggle('flipped')">
+                <div class="flip-container w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">7</div>
                         <div class="card-back">A</div>
                     </div>
                 </div> 
 
-                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.toggle('flipped')">
+                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">8</div>
                         <div class="card-back">B</div>
                     </div>
                 </div> 
 
-                <div class="flip-container w-1/4 h-full" onclick="this.children[0].classList.toggle('flipped')">
+                <div class="flip-container w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">9</div>
                         <div class="card-back">C</div>
@@ -133,21 +133,21 @@
 
             <!-- Row 4 -->
             <div class="h-1/4 flex justify-around mt-5">
-                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.toggle('flipped')">
+                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">10</div>
                         <div class="card-back">D</div>
                     </div>
                 </div> 
 
-                <div class="flip-container w-1/4 h-full" onclick="this.children[0].classList.toggle('flipped')">
+                <div class="flip-container w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">11</div>
                         <div class="card-back">E</div>
                     </div>
                 </div> 
 
-                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.toggle('flipped')">
+                <div class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">12</div>
                         <div class="card-back">F</div>
@@ -158,19 +158,66 @@
         </div>
     </div>
     <script>
-        let cards = document.querySelectorAll('.flip-container');
-        let sound = new Audio('click.mp3');
-        // let firstclick = document.querySelector('.card-back');
-        //         console.log(firstclick.innerText);
-               
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                sound.play();
-                // let backFace = card.querySelector('.card-back');
-                // console.log(backFace.innerText);
-               
-            });
-        });
+       let cards = document.querySelectorAll('.flip-container');
+
+let sound = new Audio('click.mp3');
+let hasPlayed = false;
+let firstCard = null;
+let secondCard = null;
+let firstClick = null;
+let secondClick = null;
+let lockBoard = false;
+
+cards.forEach(card => {
+    card.addEventListener('click', () => {
+        if (lockBoard || card === firstCard) return; // Prevent double-clicking the same card
+
+        sound.play();
+        // card.children[0].classList.add('flipped');
+
+        if (!hasPlayed) {
+            firstCard = card;
+            firstClick = card.querySelector('.card-back').innerText;
+            hasPlayed = true;
+        } else {
+            secondCard = card;
+            secondClick = secondCard.querySelector('.card-back').innerText;
+            lockBoard = true;
+            document.querySelectorAll('.flip-container').forEach(c => {
+                c.style.pointerEvents = 'none';});
+            checkMatch();
+        }
+    });
+});
+
+function checkMatch() {
+    if (firstClick === secondClick) {
+        console.log('Match found');
+        firstCard.style.pointerEvents = 'none';
+        secondCard.style.pointerEvents = 'none';
+        resetgame();
+        
+    } else {
+     
+        setTimeout( ()=>{
+        firstCard.children[0].classList.remove('flipped');
+        secondCard.children[0].classList.remove('flipped'); 
+           resetgame();
+    },800)
+    }
+}
+function resetgame(){
+    // Reset variables for the next turn
+    firstCard = null;
+    secondCard = null;
+    firstClick = null;
+    secondClick = null;
+    hasPlayed = false;
+    lockBoard = false;
+    document.querySelectorAll('.flip-container').forEach(c => {
+        c.style.pointerEvents = 'auto';
+    });}
+
     </script>
 </body>
 </html>
