@@ -41,11 +41,14 @@
 
         .card-front {
             background-color: rgb(238, 23, 23);
+          
         }
 
         .card-back {
-            background-color: blue;
+            background-color: none;
             transform: rotateY(180deg);
+          
+        
         }
     </style>
 </head>
@@ -64,21 +67,21 @@
                 <button class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">1</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img  class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
 
                 <button class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">2</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
 
                 <button class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">3</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
             </div>
@@ -88,21 +91,21 @@
                 <button class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">4</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
 
                 <button class="flip-container w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">5</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
 
                 <button class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">6</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
             </div>
@@ -112,21 +115,21 @@
                 <button class="flip-container w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">7</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
 
                 <button class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">8</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
 
                 <button class="flip-container w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">9</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
             </div>
@@ -136,21 +139,21 @@
                 <button class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">10</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
 
                 <button class="flip-container w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">11</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
 
                 <button class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
                     <div class="flip-card w-full h-full relative">
                         <div class="card-front">12</div>
-                        <div class="card-back"></div>
+                        <div class="card-back"><img class="card-back-img h-full w-full rounded-md object-cover" src="" alt=""></div>
                     </div>
                 </button> 
             </div>
@@ -158,99 +161,114 @@
         </div>
     </div>
     <script>
-       let cards = document.querySelectorAll('.flip-container');
-       let alpha = ["A","B","C","D","E","F"];
+    
+    let cards = document.querySelectorAll('.flip-container');
+    let sound = new Audio('clickon.mp3');
+    let win = new Audio('win2.wav');
+    let hasPlayed = false;
+    let firstCard = null;
+    let secondCard = null;
+    let firstClick = null;
+    let secondClick = null;
+    let lockBoard = false;
+    
+    let img1 = 'img.jpeg';
+    let img2 = 'img2.jpeg';
+    let img3 = 'img3.jpeg';
+    let img4 = 'img4.jpeg';
+    let img5 = 'img5.jpeg';
+    let img6 = 'img6.jpeg';
+    let images = [img1, img2, img3, img4, img5, img6];
 
-let sound = new Audio('clickon.mp3');
-let win = new Audio('win2.wav');
-let hasPlayed = false;
-let firstCard = null;
-let secondCard = null;
-let firstClick = null;
-let secondClick = null;
-let lockBoard = false;
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create pairs of images and shuffle them
+   let  imagePairs = [...images,...images];
 
-let emptycards = [];
+   for(let i=0;i<imagePairs.length;i++){
+      let randomindex =  Math.floor(Math.random()*imagePairs.length)
+      let randomimg = imagePairs[randomindex];
+    //   console.log(randomimg);
+        let finalimg =  imagePairs.splice(randomindex,1)[0];
+        // console.log(imagePairs)
+        imagePairs.push(finalimg);
+        // console.log(imagePairs)
+  };
+  console.log(imagePairs);
 
+        
+           // Assign images to cards
+        cards.forEach((card, index) => {
+            if (index < imagePairs.length) {
+                card.querySelector('.card-back-img').src = imagePairs[index];
+            }
+        });
 
-for(let i =0 ;i<12;i++){
-cards.forEach((card,index) =>{
-   let cardBack = card.querySelector('.card-back');
-   if(cardBack.innerText === ""){
-     emptycards.push(index)
-    //  console.log(emptycards)
-    };
-})
-   
-   let randomCard = Math.floor(Math.random() * emptycards.length);
-   if(i < 6){
-    let val = alpha[i];
-   cards[emptycards[randomCard]].querySelector('.card-back').innerText = val;
-//    cards[emptycards[randomCard]].querySelector('.card-front').innerText = val;
-   }
-   else if(i >= 6){
-    let val = alpha.shift();
-   cards[emptycards[randomCard]].querySelector('.card-back').innerText = val;
-//    cards[emptycards[randomCard]].querySelector('.card-front').innerText = val;
-   }
-   
-   emptycards=[];
-//    console.log(randomCard);   
-}
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                if (lockBoard || card === firstCard) return;
 
-cards.forEach(card => {
-    card.addEventListener('click', () => {
-        if (lockBoard || card === firstCard) return; // Prevent double-clicking the same card
+                sound.play();
+                card.children[0].classList.add('flipped');
 
-        sound.play();
-        // card.children[0].classList.add('flipped');
+                if (!hasPlayed) {
+                    firstCard = card;
+                    firstClick = card.querySelector('.card-back-img').src;
+                    hasPlayed = true;
+                } else {
+                    secondCard = card;
+                    secondClick = secondCard.querySelector('.card-back-img').src;
+                    lockBoard = true;
+                    document.querySelectorAll('.flip-container').forEach(c => {
+                        c.style.pointerEvents = 'none';
+                    });
+                    checkMatch();
+                }
+            });
+        });
 
-        if (!hasPlayed) {
-            firstCard = card;
-            firstClick = card.querySelector('.card-back').innerText;
-            hasPlayed = true;
-        } else {
-            secondCard = card;
-            secondClick = secondCard.querySelector('.card-back').innerText;
-            lockBoard = true;
+        function checkMatch() {
+            if (firstClick === secondClick) {
+                console.log('Match found');
+                firstCard.style.pointerEvents = 'none';
+                secondCard.style.pointerEvents = 'none';
+                firstCard.disabled = true;
+                secondCard.disabled = true;
+                resetgame();
+                sound.pause();
+                win.play();
+            } else {
+                setTimeout(() => {
+                    firstCard.children[0].classList.remove('flipped');
+                    secondCard.children[0].classList.remove('flipped');
+                    resetgame();
+                }, 800);
+            }
+        };
+
+        function resetgame() {
+            firstCard = null;
+            secondCard = null;
+            firstClick = null;
+            secondClick = null;
+            hasPlayed = false;
+            lockBoard = false;
             document.querySelectorAll('.flip-container').forEach(c => {
-                c.style.pointerEvents = 'none';});
-            checkMatch();
+                c.style.pointerEvents = 'auto';
+            });
         }
     });
-});
 
-function checkMatch() {
-    if (firstClick === secondClick) {
-        console.log('Match found');
-        firstCard.style.pointerEvents = 'none';
-        secondCard.style.pointerEvents = 'none';
-        firstCard.disabled = true;
-        secondCard.disabled = true;
-        resetgame();
-        sound.pause();
-        win.play();
-        
-    } else {
-     
-        setTimeout( ()=>{
-        firstCard.children[0].classList.remove('flipped');
-        secondCard.children[0].classList.remove('flipped'); 
-           resetgame();
-    },800)
-    }
-};
-function resetgame(){
-    // Reset variables for the next turn
-    firstCard = null;
-    secondCard = null;
-    firstClick = null;
-    secondClick = null;
-    hasPlayed = false;
-    lockBoard = false;
-    document.querySelectorAll('.flip-container').forEach(c => {
-        c.style.pointerEvents = 'auto';
-    });}
+//     const arr = [1, 2, 3, 1, 2, 3];
+// const shuffled = [...arr].sort(() => Math.random() - 0.5);
+// console.log("Before:", arr, "After:", shuffled);
+ 
+// let arr = ['A','B','C','D','E','F'];
+// let number = Math.floor(Math.random()*arr.length);
+// console.log(arr[number]);
+// let newnum = arr.splice(number,1)[0];
+// console.log(arr);
+// arr.push(newnum);
+// console.log(arr);
 
     </script>
 </body>
