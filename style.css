@@ -8,19 +8,19 @@
   --tw-skew-y: 0;
   --tw-scale-x: 1;
   --tw-scale-y: 1;
-  --tw-pan-x:  ;
-  --tw-pan-y:  ;
-  --tw-pinch-zoom:  ;
+  --tw-pan-x: 0;  /* Added value */
+  --tw-pan-y: 0;  /* Added value */
+  --tw-pinch-zoom: 0;  /* Added value */
   --tw-scroll-snap-strictness: proximity;
-  --tw-gradient-from-position:  ;
-  --tw-gradient-via-position:  ;
-  --tw-gradient-to-position:  ;
-  --tw-ordinal:  ;
-  --tw-slashed-zero:  ;
-  --tw-numeric-figure:  ;
-  --tw-numeric-spacing:  ;
-  --tw-numeric-fraction:  ;
-  --tw-ring-inset:  ;
+  --tw-gradient-from-position: 0;  /* Added value */
+  --tw-gradient-via-position: 0;  /* Added value */
+  --tw-gradient-to-position: 100%;  /* Added value */
+  --tw-ordinal: 1;  /* Added value */
+  --tw-slashed-zero: 0;  /* Added value */
+  --tw-numeric-figure: 0;  /* Added value */
+  --tw-numeric-spacing: 0;  /* Added value */
+  --tw-numeric-fraction: 0;  /* Added value */
+  --tw-ring-inset: 0;  /* Added value */
   --tw-ring-offset-width: 0px;
   --tw-ring-offset-color: #fff;
   --tw-ring-color: rgb(59 130 246 / 0.5);
@@ -28,29 +28,30 @@
   --tw-ring-shadow: 0 0 #0000;
   --tw-shadow: 0 0 #0000;
   --tw-shadow-colored: 0 0 #0000;
-  --tw-blur:  ;
-  --tw-brightness:  ;
-  --tw-contrast:  ;
-  --tw-grayscale:  ;
-  --tw-hue-rotate:  ;
-  --tw-invert:  ;
-  --tw-saturate:  ;
-  --tw-sepia:  ;
-  --tw-drop-shadow:  ;
-  --tw-backdrop-blur:  ;
-  --tw-backdrop-brightness:  ;
-  --tw-backdrop-contrast:  ;
-  --tw-backdrop-grayscale:  ;
-  --tw-backdrop-hue-rotate:  ;
-  --tw-backdrop-invert:  ;
-  --tw-backdrop-opacity:  ;
-  --tw-backdrop-saturate:  ;
-  --tw-backdrop-sepia:  ;
-  --tw-contain-size:  ;
-  --tw-contain-layout:  ;
-  --tw-contain-paint:  ;
-  --tw-contain-style:  ;
+  --tw-blur: 0;  /* Added value */
+  --tw-brightness: 0;  /* Added value */
+  --tw-contrast: 0;  /* Added value */
+  --tw-grayscale: 0;  /* Added value */
+  --tw-hue-rotate: 0;  /* Added value */
+  --tw-invert: 0;  /* Added value */
+  --tw-saturate: 0;  /* Added value */
+  --tw-sepia: 0;  /* Added value */
+  --tw-drop-shadow: 0;  /* Added value */
+  --tw-backdrop-blur: 0;  /* Added value */
+  --tw-backdrop-brightness: 0;  /* Added value */
+  --tw-backdrop-contrast: 0;  /* Added value */
+  --tw-backdrop-grayscale: 0;  /* Added value */
+  --tw-backdrop-hue-rotate: 0;  /* Added value */
+  --tw-backdrop-invert: 0;  /* Added value */
+  --tw-backdrop-opacity: 1;  /* Added value */
+  --tw-backdrop-saturate: 0;  /* Added value */
+  --tw-backdrop-sepia: 0;  /* Added value */
+  --tw-contain-size: 0;  /* Added value */
+  --tw-contain-layout: 0;  /* Added value */
+  --tw-contain-paint: 0;  /* Added value */
+  --tw-contain-style: 0;  /* Added value */
 }
+
 
 ::backdrop {
   --tw-border-spacing-x: 0;
@@ -644,7 +645,7 @@ video {
 }
 
 .h-\[\] {
-  height: ;
+  height: auto;
 }
 
 .h-\[500px\] {
@@ -922,7 +923,7 @@ video {
 }
 
 .text-\[\#\] {
-  color: #;
+  color: #000; /* Defaulting to black */
 }
 
 .text-\[\#333333\] {

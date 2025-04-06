@@ -300,22 +300,22 @@ winallcheck();
 
 
 
-playagain.addEventListener('click',()=>{
+playagain.addEventListener('click', () => {
     playagain.style.display = 'none';
     wintext.textContent = '';
     resetgame();
-  
 
-    cards.forEach( card=>{
-     ()=>{ card.children[0].classList.remove('flipped');
-        card.disabled = false;}
-
+    cards.forEach(card => {
+        card.children[0].classList.remove('flipped'); // Correctly removes the 'flipped' class
+        card.disabled = false; // Enable the card again
     });
+
     images = [];
-   fetchimages();    
-   winall = 0;
-   winall();
+    fetchimages();    
+    winall = 0;
+    winallcheck(); // Call to check for the win condition again
 });
+
 // });
 
     </script>
