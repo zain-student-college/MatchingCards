@@ -59,9 +59,10 @@
     </div>
 
     <!-- Body After Heading -->
-    <div class="p-2">
+    <div class="p-1">
+        <div id="wintext" class="flex justify-center mt-5 capitalize text-lg font-bold text-[#1E3A8A]  transition-all duration-500 scale-0 origin-center"><h1 class=" "></h1></div>
         <!-- Container -->
-        <div class="mt-10 h-96 p-1">
+        <div class="mt-8 h-[430px] p-1">
             <!-- Row 1 -->
             <div class="h-1/4 flex justify-around">
                 <button class="flip-container  w-1/4 h-full" onclick="this.children[0].classList.add('flipped')">
@@ -159,29 +160,45 @@
             </div>
 
         </div>
+        <div class="flex justify-center mt-24 text-xl font-semibold  "><button id="playagain" class=" border-[3px] bg-yellow-600 hidden shadow-md shadow-black  hover:scale-105 transition-all duration-100  border-gray-900 p-1 rounded-md capitalize text-gray-50">play again?</button></div>
     </div>
     <script>
     
     let cards = document.querySelectorAll('.flip-container');
-    let sound = new Audio('clickon.mp3');
+    let wintext = document.querySelector('#wintext');
+    let playagain = document.querySelector('#playagain');
+    let sound = new Audio('click-trim.mp3');
     let win = new Audio('win2.wav');
+    let winsound = new Audio('wingame.mp3');
     let hasPlayed = false;
     let firstCard = null;
     let secondCard = null;
     let firstClick = null;
     let secondClick = null;
     let lockBoard = false;
+    let winall = 0;
     
-    let img1 = 'img.jpeg';
-    let img2 = 'img2.jpeg';
-    let img3 = 'img3.jpeg';
-    let img4 = 'img4.jpeg';
-    let img5 = 'img5.jpeg';
-    let img6 = 'img6.jpeg';
-    let images = [img1, img2, img3, img4, img5, img6];
+    // let img1 = 'img.jpeg';
+    // let img2 = 'img2.jpeg';
+    // let img3 = 'img3.jpeg';
+    // let img4 = 'img4.jpeg';
+    // let img5 = 'img5.jpeg';
+    // let img6 = 'img6.jpeg';
+    let images = [];
 
-    document.addEventListener('DOMContentLoaded', function() {
+    function fetchimages(){
+    for (let i=0;i<6;i++){
+        images[i]="https://picsum.photos/2000?random=" + (Date.now() + i);
+        
+    }
+shuffle();
+  
+};
+fetchimages();
+shuffle();
+    // document.addEventListener('DOMContentLoaded', function() {
         // Create pairs of images and shuffle them
+  function shuffle(){
    let  imagePairs = [...images,...images];
 
    for(let i=0;i<imagePairs.length;i++){
@@ -201,7 +218,7 @@
             if (index < imagePairs.length) {
                 card.querySelector('.card-back-img').src = imagePairs[index];
             }
-        });
+        });}
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
@@ -228,6 +245,7 @@
 
         function checkMatch() {
             if (firstClick === secondClick) {
+                winall++;
                 console.log('Match found');
                 firstCard.style.pointerEvents = 'none';
                 secondCard.style.pointerEvents = 'none';
@@ -236,6 +254,8 @@
                 resetgame();
                 sound.pause();
                 win.play();
+                winallcheck();
+
             } else {
                 setTimeout(() => {
                     firstCard.children[0].classList.remove('flipped');
@@ -256,19 +276,47 @@
                 c.style.pointerEvents = 'auto';
             });
         }
-    });
+    
 
-//     const arr = [1, 2, 3, 1, 2, 3];
-// const shuffled = [...arr].sort(() => Math.random() - 0.5);
-// console.log("Before:", arr, "After:", shuffled);
- 
-// let arr = ['A','B','C','D','E','F'];
-// let number = Math.floor(Math.random()*arr.length);
-// console.log(arr[number]);
-// let newnum = arr.splice(number,1)[0];
-// console.log(arr);
-// arr.push(newnum);
-// console.log(arr);
+    function winallcheck(){
+        if(winall===6){
+            win.pause();
+    
+            wintext.textContent = 'Congratulations! All cards matched!';
+
+// Remove the 'hidden' class to make it visible
+wintext.classList.remove('hidden'); 
+// Trigger the animation by removing the scale-0 and opacity-0, and adding scale-100 and opacity-100
+setTimeout(() => {
+    playagain.style.display = 'block';
+    wintext.classList.remove('scale-0', 'opacity-0');
+    wintext.classList.add('scale-100', 'opacity-100');
+}, 150); 
+            setTimeout(()=>{winsound.play();},300)            
+        }
+    }
+winallcheck();
+
+
+
+
+playagain.addEventListener('click',()=>{
+    playagain.style.display = 'none';
+    wintext.textContent = '';
+    resetgame();
+  
+
+    cards.forEach( card=>{
+     ()=>{ card.children[0].classList.remove('flipped');
+        card.disabled = false;}
+
+    });
+    images = [];
+   fetchimages();    
+   winall = 0;
+   winall();
+});
+// });
 
     </script>
 </body>
