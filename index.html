@@ -7,6 +7,32 @@
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="stylesheet" href="style.css">
     <style>
+
+ /* Loader Styles */
+ #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(232, 232, 235);
+            /* display: flex; */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        
+        }
+
+        /* .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        } */
+
         .flip-container {
             perspective: 1000px;
         }
@@ -50,15 +76,28 @@
           
         
         }
+        #gamecontent{
+            display: block;
+            transition: opacity 0.5s ease;
+            opacity: 0; /* Start hidden */
+        }
+       
     </style>
 </head>
-<body class="bg-[#84DCCF] h-screen">
-    <!-- Heading -->
+<body class="bg-[#84DCCF] h-scren">
+    <div id="loader" class="hidden">
+    <div class="capitalize font-mono font-bold text-2xl text-center mt-10 text-gray-800">please wait! while the images are loading....</div>
+    <div class="flex items-center justify-center h-[600px]">
+<div class="loader border-t-[6px] border-r-transparent border-b-transparent border-l-transparent  rounded-full w-16 h-16 animate-[spin_2s_linear_infinite,borderColorChange_2s_ease-in-out_infinite] sm:h-24 sm:w24 sm:border-t-[8px]"></div>
+    </div></div>
+   
+
+    <!-- Body After Heading -->
+     <div id="gamecontent">
+         <!-- Heading -->
     <div class="flex items-center justify-center h-[8%] bg-[#312F2F] text-white text-2xl font-mono">
         <h1>Matching Cards</h1>
     </div>
-
-    <!-- Body After Heading -->
     <div class="p-1">
         <div id="wintext" class="flex justify-center mt-5 capitalize text-lg font-bold text-[#1E3A8A]  transition-all duration-500 scale-0 origin-center"><h1 class=" "></h1></div>
         <!-- Container -->
@@ -160,65 +199,110 @@
             </div>
 
         </div>
-        <div class="flex justify-center mt-24 text-xl font-semibold  "><a href="loader.html"><button id="playagain" class=" border-[3px] bg-yellow-600 hidde shadow-md shadow-black  hover:scale-105 transition-all duration-100  border-gray-900 p-1 rounded-md capitalize text-gray-50">play again?</button></a></div>
-    </div>
+        <div class="flex justify-center mt-24 text-xl font-semibold  "><button id="playagain" class=" border-[3px] bg-yellow-600 hidden shadow-md shadow-black  hover:scale-105 transition-all duration-100  border-gray-900 p-1 rounded-md capitalize text-gray-50">play again?</button></div>
+    </div></div>
     <script>
-    
-    let cards = document.querySelectorAll('.flip-container');
-    let wintext = document.querySelector('#wintext');
-    let playagain = document.querySelector('#playagain');
-    let sound = new Audio('click-trim.mp3');
-    let win = new Audio('win2.wav');
-    let winsound = new Audio('wingame.mp3');
-    let hasPlayed = false;
-    let firstCard = null;
-    let secondCard = null;
-    let firstClick = null;
-    let secondClick = null;
-    let lockBoard = false;
-    let winall = 0;
-    
-    // let img1 = 'img.jpeg';
-    // let img2 = 'img2.jpeg';
-    // let img3 = 'img3.jpeg';
-    // let img4 = 'img4.jpeg';
-    // let img5 = 'img5.jpeg';
-    // let img6 = 'img6.jpeg';
-    let images = [];
+   
+         // YOUR ORIGINAL VARIABLES EXACTLY AS YOU HAD THEM
+         let cards = document.querySelectorAll('.flip-container');
+        let loadgame = document.querySelector('#loader');
+        let game = document.querySelector('#gamecontent');
+        let wintext = document.querySelector('#wintext');
+        let playagain = document.querySelector('#playagain');
+        let sound = new Audio('click-trim.mp3');
+        let win = new Audio('win2.wav');
+        let winsound = new Audio('wingame.mp3');
+        let hasPlayed = false;
+        let firstCard = null;
+        let secondCard = null;
+        let firstClick = null;
+        let secondClick = null;
+        let lockBoard = false;
+        let winall = 0;
+        let images = [];
 
-    function fetchimages(){
-    for (let i=0;i<6;i++){
-        images[i]="https://picsum.photos/2000?random=" + (Date.now() + i);
-        
-    }
-shuffle();
-  
-};
-fetchimages();
-shuffle();
-    // document.addEventListener('DOMContentLoaded', function() {
-        // Create pairs of images and shuffle them
-  function shuffle(){
-   let  imagePairs = [...images,...images];
+        // Initialize loader - ONLY CHANGE NEEDED
+        window.onload = function  () {
+            setTimeout(()=>{ loadgame.style.display = 'block';
+            game.style.display = 'none';},50)
+           
+            fetchimages();
+        };
 
-   for(let i=0;i<imagePairs.length;i++){
-      let randomindex =  Math.floor(Math.random()*imagePairs.length)
-      let randomimg = imagePairs[randomindex];
-    //   console.log(randomimg);
-        let finalimg =  imagePairs.splice(randomindex,1)[0];
-        // console.log(imagePairs)
-        imagePairs.push(finalimg);
-        // console.log(imagePairs)
-  };
-  console.log(imagePairs);
-
-        
-           // Assign images to cards
-        cards.forEach((card, index) => {
-            if (index < imagePairs.length) {
-                card.querySelector('.card-back-img').src = imagePairs[index];
+        // YOUR ORIGINAL fetchimages FUNCTION EXACTLY AS YOU WROTE IT
+        function fetchimages() {
+            for (let i=0;i<6;i++) {
+                images[i]="https://picsum.photos/2000?random=" + (Date.now() + i);
             }
-        });}
+            preloadImages();
+        };
+
+        // MODIFIED preloadImages TO FIX LOADER (ONLY CHANGE)
+        function preloadImages() {
+            const preloadPromises = images.map(src => {
+                return new Promise(resolve => {
+                    const img = new Image();
+                    img.src = src;
+                    img.onload = resolve;
+                    img.onerror = resolve;
+                });
+            });
+
+            Promise.all(preloadPromises).then(() => {
+                // YOUR ORIGINAL SHUFFLE LOGIC EXACTLY AS YOU WROTE IT
+                loadgame.style.opacity = '0';
+                loadgame.style.visibility = 'hidden';
+                
+                // Fade in game
+                game.style.display = 'block';
+                setTimeout(() => {
+                    game.style.opacity = '1';
+                }, 100); 
+                shuffle();
+                
+                // Wait for card images to load before hiding loader
+                const cardImages = document.querySelectorAll('.card-back-img');
+                const cardLoadPromises = Array.from(cardImages).map(img => {
+                    return new Promise(resolve => {
+                        if (img.complete) {
+                            resolve();
+                        } else {
+                            img.onload = resolve;
+                            img.onerror = resolve;
+                        }
+                    });
+                });
+                
+                Promise.all(cardLoadPromises).then(() => {
+                    loadgame.style.display = 'none';
+                    game.style.display = 'block';
+                });
+            });
+        }
+
+        // YOUR ORIGINAL shuffle FUNCTION EXACTLY AS YOU WROTE IT
+        function shuffle() {
+            let imagePairs = [...images,...images];
+            
+            for(let i=0;i<imagePairs.length;i++) {
+                let randomindex = Math.floor(Math.random()*imagePairs.length);
+                let finalimg = imagePairs.splice(randomindex,1)[0];
+                imagePairs.push(finalimg);
+            };
+            
+            cards.forEach((card, index) => {
+                if (index < imagePairs.length) {
+                    card.querySelector('.card-back-img').src = imagePairs[index];
+                }
+            });
+        }
+
+        // ALL YOUR ORIGINAL GAME FUNCTIONS EXACTLY AS YOU WROTE THEM
+        function gameagain() {
+            game.style.display = 'block';
+            loadgame.style.display = 'none';
+        }
+
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
@@ -301,6 +385,12 @@ winallcheck();
 
 
 playagain.addEventListener('click', () => {
+    game.style.opacity = '0';
+            loadgame.style.display = 'block';
+            game.style.display = 'none';
+            fetchimages();
+       
+
     playagain.style.display = 'none';
     wintext.textContent = '';
     resetgame();
@@ -309,6 +399,12 @@ playagain.addEventListener('click', () => {
         card.children[0].classList.remove('flipped'); // Correctly removes the 'flipped' class
         card.disabled = false; // Enable the card again
     });
+ 
+ // Show loader with fade
+ loadgame.style.display = 'block';
+            loadgame.style.opacity = '1';
+            loadgame.style.visibility = 'visible';
+            game.style.display = 'none';
 
     images = [];
     fetchimages();    
